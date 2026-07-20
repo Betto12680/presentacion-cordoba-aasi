@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#ffffff">
+<title>Presentación · Córdoba 2026 · Semillero AASI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; width: 100%; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: #ffffff;
+    color: #14171e;
+    line-height: 1.6;
+    font-size: 16px;
+    overflow: hidden;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ===== SLIDESHOW ===== */
+  .slideshow {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    position: relative;
+    overflow: hidden;
+  }
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    background: #ffffff;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    opacity: 0;
+    transform: translateX(40px);
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+    touch-action: pan-y;
+  }
+  .slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+  .slide-inner {
+    flex: 1;
+    padding: calc(64px + env(safe-area-inset-top, 0px)) 20px calc(110px + env(safe-area-inset-bottom, 0px));
+    max-width: 720px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* ===== HEADER CON ICONO ===== */
+  .slide-header-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 8px;
+  }
+  .slide-icon {
+    width: 44px; height: 44px;
+    flex-shrink: 0;
+    background: #14171e;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: #ffffff;
+  }
+  .slide-icon svg { width: 24px; height: 24px; }
+  .slide-num {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: #9a9a9a; font-weight: 600;
+  }
+  .slide-title {
+    font-size: clamp(22px, 5.5vw, 28px); font-weight: 800;
+    color: #14171e;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+  .slide-lead {
+    font-size: 17px; line-height: 1.5; color: #444;
+    margin-bottom: 18px;
+  }
+
+  /* ===== SÍNTESIS ===== */
+  .sintesis {
+    background: #fafafa;
+    border-left: 3px solid #14171e;
+    padding: 12px 14px;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 22px;
+  }
+  .sintesis-label {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: #6b6b6b; font-weight: 700; margin-bottom: 4px;
+  }
+  .sintesis-text {
+    font-size: 15px; line-height: 1.5; color: #14171e;
+    font-weight: 500;
+  }
+
+  /* ===== CARDS GRID ===== */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .list-card {
+    background: #f5f5f5;
+    border-radius: 12px;
+    padding: 14px 10px;
+    border-top: 4px solid #14171e;
+    text-align: center;
+  }
+  .list-card .num {
+    font-size: 10px; font-weight: 700;
+    color: #14171e;
+    margin-bottom: 6px;
+    letter-spacing: 1.2px;
+  }
+  .list-card .name {
+    font-size: 13.5px; font-weight: 700;
+    color: #14171e;
+    line-height: 1.3;
+  }
+
+  /* ===== MIXTO GRID ===== */
+  .mixto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .mixto-col {
+    background: #f8f8f8;
+    border-radius: 12px;
+    padding: 14px 16px;
+    border-top: 4px solid #14171e;
+  }
+  .mixto-label {
+    font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 8px;
+    color: #14171e;
+  }
+  .mixto-list {
+    list-style: none; padding: 0; margin: 0 0 6px;
+  }
+  .mixto-list li {
+    padding: 4px 0;
+    border-bottom: 1px solid #ececec;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #14171e;
+  }
+  .mixto-list li:last-child { border-bottom: none; }
+  .mixto-list li::before {
+    content: "•"; margin-right: 6px; font-weight: 700;
+  }
+  .mixto-purpose {
+    font-size: 12px; color: #6b6b6b; font-style: italic;
+    line-height: 1.35;
+  }
+
+  /* ===== PHASE DETAIL ===== */
+  .phase-detail { margin-bottom: 18px; }
+  .phase-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+    align-items: start;
+    padding: 12px 14px;
+    background: #fafafa;
+    border-left: 4px solid #14171e;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 8px;
+  }
+  @media (min-width: 480px) {
+    .phase-row {
+      grid-template-columns: 100px 1fr;
+      gap: 12px;
+    }
+  }
+  .phase-label {
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px;
+    color: #14171e;
+    padding-top: 3px;
+  }
+  .phase-text {
+    font-size: 14px; line-height: 1.45; color: #14171e;
+  }
+
+  /* ===== HIGHLIGHT BOX ===== */
+  .highlight-box {
+    background: #f5f5f5;
+    border-left: 4px solid #14171e;
+    padding: 16px 18px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 18px;
+  }
+  .highlight-box .text {
+    font-size: 15px; line-height: 1.5; color: #14171e;
+    font-weight: 500;
+  }
+
+  /* ===== FACTS GRID ===== */
+  .facts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .fact-card {
+    background: #fafafa;
+    border-radius: 10px;
+    padding: 10px 12px;
+    border-top: 3px solid #14171e;
+  }
+  .fact-card .k {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em;
+    color: #6b6b6b; margin-bottom: 2px; font-weight: 700;
+  }
+  .fact-card .v {
+    font-size: 14px; color: #14171e; font-weight: 600;
+  }
+
+  /* ===== CONTENIDO (texto del documento) ===== */
+  .content {
+    font-size: 15.5px; line-height: 1.65; color: #14171e;
+    background: #fafafa;
+    border-radius: 8px;
+    padding: 16px 18px;
+    border: 1px solid #ececec;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .content p { margin-bottom: 12px; }
+  .content p:last-child { margin-bottom: 0; }
+  .content strong { color: #14171e; font-weight: 600; }
+  .content ul, .content ol {
+    list-style: none; padding: 0; margin: 0 0 12px;
+  }
+  .content ul li, .content ol li {
+    position: relative;
+    padding: 8px 0 8px 22px;
+    border-bottom: 1px solid #ececec;
+    line-height: 1.55;
+  }
+  .content ul li:last-child, .content ol li:last-child { border-bottom: none; }
+  .content ul li::before {
+    content: "—"; position: absolute; left: 0; top: 8px;
+    color: #9a9a9a; font-weight: 400;
+  }
+  .content ol { counter-reset: list; }
+  .content ol li { padding-left: 30px; }
+  .content ol li::before {
+    content: counter(list) ".";
+    position: absolute; left: 0; top: 8px;
+    color: #9a9a9a; font-weight: 600;
+    font-family: 'Inter', sans-serif; font-size: 14px;
+  }
+  .content .subhead {
+    font-weight: 700; color: #14171e;
+    margin: 14px 0 6px;
+    font-size: 14px;
+  }
+
+  /* ===== ETIQUETA DE SECCIÓN ===== */
+  .section-label {
+    display: inline-block;
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: #14171e;
+    margin-bottom: 10px;
+    padding: 4px 10px;
+    background: #f5f5f5;
+    border-radius: 100px;
+  }
+
+  /* ===== PORTADA ===== */
+  .slide.cover {
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .cover-bg {
+    position: absolute; inset: 0;
+    pointer-events: none; z-index: 0;
+  }
+  .cover-bg svg { width: 100%; height: 100%; }
+  .slide.cover .slide-inner {
+    display: flex; flex-direction: column; justify-content: center;
+    text-align: left;
+    padding: calc(32px + env(safe-area-inset-top, 0px)) 24px calc(110px + env(safe-area-inset-bottom, 0px));
+    position: relative; z-index: 1;
+  }
+  .slide.cover .cover-icon {
+    width: 64px; height: 64px;
+    background: #14171e;
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    color: #ffffff;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(20, 23, 30, 0.15);
+  }
+  .slide.cover .cover-icon svg { width: 32px; height: 32px; }
+  .slide.cover .label {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: #6b6b6b; font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .slide.cover h1 {
+    font-size: clamp(24px, 6vw, 36px); font-weight: 800;
+    line-height: 1.18; color: #14171e;
+    margin-bottom: 18px;
+    letter-spacing: -0.025em;
+  }
+  .slide.cover .meta {
+    font-size: 14px; color: #6b6b6b;
+    padding-top: 16px;
+    border-top: 1px solid #ececec;
+  }
+  .slide.cover .meta-line { margin-bottom: 4px; }
+  .slide.cover .meta strong { color: #14171e; font-weight: 600; }
+
+  /* ===== BOTONES LATERALES (solo en pantallas muy anchas) ===== */
+  .side-btn {
+    display: none;
+  }
+
+  /* ===== TOP BAR ===== */
+  .top-bar {
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: calc(10px + env(safe-area-inset-top, 0px)) 16px 10px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    z-index: 40;
+    border-bottom: 1px solid #ececec;
+  }
+  .top-bar .brand {
+    font-size: 12px; color: #6b6b6b; font-weight: 500;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    margin-right: 8px;
+  }
+  .top-bar .brand strong { color: #14171e; font-weight: 700; }
+  .top-bar .menu-btn {
+    background: #14171e; border: none;
+    border-radius: 100px; padding: 6px 14px;
+    font-size: 12px; font-weight: 600; color: #ffffff;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 4px;
+    font-family: 'Inter', sans-serif;
+    flex-shrink: 0;
+  }
+  .top-bar .menu-btn:active { opacity: 0.9; }
+
+  /* ===== CONTROLES INFERIORES ===== */
+  .controls {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid #e5e5e5;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+    display: flex; align-items: center; gap: 10px;
+    z-index: 50;
+    touch-action: manipulation;
+  }
+  .controls .counter {
+    font-size: 12px; color: #6b6b6b; font-weight: 600;
+    flex-shrink: 0; min-width: 48px;
+  }
+  .controls .progress {
+    flex: 1; height: 3px; background: #e0e0e0;
+    border-radius: 100px; overflow: hidden;
+  }
+  .controls .progress-fill {
+    height: 100%; background: #14171e;
+    transition: width 0.3s ease;
+    border-radius: 100px;
+  }
+  .nav-btn {
+    background: #14171e; color: #ffffff;
+    border: none; border-radius: 100px;
+    padding: 10px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 4px;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    min-height: 40px;
+  }
+  .nav-btn:active { transform: scale(0.96); }
+  .nav-btn:disabled { opacity: 0.25; cursor: not-allowed; }
+
+  /* ===== MENU OVERLAY ===== */
+  .menu-overlay {
+    position: fixed; inset: 0;
+    background: rgba(20, 23, 30, 0.97);
+    z-index: 100;
+    display: none; flex-direction: column;
+    padding: calc(16px + env(safe-area-inset-top, 0px)) 18px calc(16px + env(safe-area-inset-bottom, 0px));
+    color: #f4f4f4;
+  }
+  .menu-overlay.open { display: flex; }
+  .menu-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .menu-head h2 {
+    font-size: 18px; color: #ffffff; font-weight: 600;
+  }
+  .menu-head .close {
+    background: rgba(255,255,255,0.15);
+    border: none; color: #ffffff;
+    width: 36px; height: 36px; border-radius: 50%;
+    font-size: 18px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .menu-list { list-style: none; padding: 0; overflow-y: auto; flex: 1; }
+  .menu-list li a {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px; color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  .menu-list li a:active { background: rgba(255,255,255,0.1); }
+  .menu-list li a.current {
+    background: #ffffff; color: #14171e;
+    font-weight: 600;
+  }
+  .menu-list .num {
+    font-size: 12px; font-weight: 600;
+    min-width: 24px; text-align: center;
+    color: rgba(255,255,255,0.5);
+  }
+  .menu-list li a.current .num { color: #14171e; }
+
+  /* ===== HINT INICIAL ===== */
+  .swipe-hint {
+    position: fixed;
+    bottom: calc(70px + env(safe-area-inset-bottom, 0px)); left: 50%;
+    transform: translateX(-50%);
+    background: rgba(20, 23, 30, 0.95);
+    color: #ffffff;
+    padding: 10px 18px;
+    border-radius: 100px;
+    font-size: 12px; font-weight: 500;
+    z-index: 70;
+    display: flex; align-items: center; gap: 8px;
+    animation: hintPulse 1.5s ease-in-out infinite;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  @keyframes hintPulse {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-6px); }
+  }
+  .swipe-hint.hidden { display: none; }
+  .swipe-hint .arrow-left, .swipe-hint .arrow-right {
+    font-size: 16px; font-weight: 700;
+  }
+
+  /* ===== RESPONSIVE DESKTOP ===== */
+  @media (min-width: 600px) {
+    .slide-inner { padding: calc(72px + env(safe-area-inset-top, 0px)) 32px calc(110px + env(safe-area-inset-bottom, 0px)); }
+    .slide.cover .slide-inner { padding: 40px 36px 110px; }
+    .slide.cover .cover-icon { width: 80px; height: 80px; border-radius: 20px; }
+    .slide.cover .cover-icon svg { width: 40px; height: 40px; }
+  }
+
+  @media (min-width: 1024px) {
+    .side-btn {
+      display: flex;
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px; height: 64px;
+      background: rgba(20, 23, 30, 0.5);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      font-size: 28px; font-weight: 700;
+      cursor: pointer;
+      z-index: 60;
+      align-items: center; justify-content: center;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .side-btn:hover { background: rgba(20, 23, 30, 0.85); }
+    .side-btn.prev { left: 20px; }
+    .side-btn.next { right: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="slideshow" id="slideshow">
+
+  <!-- ============== SLIDE 1 · PORTADA ============== -->
+  <section class="slide cover active" data-num="1">
+    <div class="cover-bg">
+      <svg viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1" fill="#ececec"/>
+          </pattern>
+        </defs>
+        <rect width="800" height="800" fill="url(#dots)"/>
+        <circle cx="120" cy="180" r="80" fill="none" stroke="#ececec" stroke-width="1.5"/>
+        <circle cx="120" cy="180" r="50" fill="none" stroke="#ececec" stroke-width="1.5"/>
+        <circle cx="120" cy="180" r="20" fill="none" stroke="#e0e0e0" stroke-width="1.5"/>
+        <circle cx="680" cy="640" r="120" fill="none" stroke="#ececec" stroke-width="1.5"/>
+        <circle cx="680" cy="640" r="80" fill="none" stroke="#ececec" stroke-width="1.5"/>
+        <circle cx="680" cy="640" r="40" fill="none" stroke="#e0e0e0" stroke-width="1.5"/>
+        <circle cx="680" cy="640" r="10" fill="none" stroke="#d4d4d4" stroke-width="1.5"/>
+        <line x1="0" y1="120" x2="200" y2="120" stroke="#ececec" stroke-width="1.5"/>
+        <line x1="600" y1="700" x2="800" y2="700" stroke="#ececec" stroke-width="1.5"/>
+        <circle cx="60" cy="720" r="6" fill="#e0e0e0"/>
+        <circle cx="80" cy="740" r="4" fill="#ececec"/>
+        <circle cx="100" cy="720" r="5" fill="#e0e0e0"/>
+      </svg>
+    </div>
+    <div class="slide-inner">
+      <div class="cover-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="8" cy="8" r="3"/>
+          <circle cx="16" cy="8" r="3"/>
+          <circle cx="12" cy="16" r="3"/>
+        </svg>
+      </div>
+      <div class="label">Encuentro de Semilleros · Córdoba 2026</div>
+      <h1>Implementación de Estrategias de Atención con Enfoque Pluralista y Diferencial en el CIES del SENA Regional Huila</h1>
+      <div class="meta">
+        <div class="meta-line"><strong>Semillero AASI</strong></div>
+        <div class="meta-line">Aplicaciones Accesibles</div>
+        <div class="meta-line">SENA Regional Huila</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SLIDE 2 · PRESENTACIÓN ============== -->
+  <section class="slide" data-num="2">
+    <div class="slide-inner">
+      <div class="slide-header-row">
+        <div class="slide-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 21v-1a7 7 0 0 1 7-7h2a7 7 0 0 1 7 7v1"/>
+          </svg>
+        </div>
+        <div class="slide-num">02 — Presentación</div>
+      </div>
+      <h2 class="slide-title">Presentación</h2>
+      <div class="sintesis">
+        <div class="sintesis-label">Resumen rápido</div>
+        <div class="sintesis-text">El Semillero AASI del SENA Regional Huila presenta su proyecto. Lleva 8 años trabajando con el CIES en inclusión.</div>
+      </div>
+      <div class="content">
+        <p>Hola, buenos días. Mi nombre es Jesús Pencue.</p>
+        <p>Pertenezco al semillero de investigación Aplicaciones Accesibles AASI, del Centro de la Industria, la Empresa y los Servicios del SENA Regional Huila.</p>
+        <p>Hoy les presentaré nuestro proyecto: la implementación de estrategias de atención con enfoque pluralista y diferencial.</p>
+        <p>Antes de avanzar, es importante mencionar que este semillero de investigación viene trabajando con el CIES aproximadamente 8 años. Yo me integré este último año.</p>
+        <p>Desde que el semillero trabaja con el CIES, nuestro centro de formación ha sido reconocido por su trabajo en inclusión, y ha crecido el número de aprendices con diversidad funcional, social y cultural.</p>
+        <p>Es importante aclarar que el semillero, cuando inició, se enfocó en personas con discapacidad. Hoy, con la política de enfoque pluralista y diferencial del SENA, trabajamos con todas las poblaciones, reconociendo la diversidad en su sentido más amplio.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SLIDE 3 · PROBLEMAS Y JUSTIFICACIÓN ============== -->
+  <section class="slide" data-num="3">
+    <div class="slide-inner">
+      <div class="slide-header-row">
+        <div class="slide-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <div class="slide-num">03 — Problemas y justificación</div>
+      </div>
+      <h2 class="slide-title">Problemas y justificación</h2>
+      <div class="sintesis">
+        <div class="sintesis-label">Resumen rápido</div>
+        <div class="sintesis-text">Cada vez llegan más aprendices diversos al CIES. El centro debe fortalecer capacidades para atenderlos y evitar la deserción.</div>
+      </div>
+      <div class="cards-grid">
+        <div class="list-card">
+          <div class="num">+ DIVERSOS</div>
+          <div class="name">Más aprendices distintos</div>
+        </div>
+        <div class="list-card">
+          <div class="num">− RECURSOS</div>
+          <div class="name">Faltan herramientas</div>
+        </div>
+        <div class="list-card">
+          <div class="num">! RIESGO</div>
+          <div class="name">Deserción</div>
+        </div>
+      </div>
+      <div class="content">
+        <p>En el CIES, el número de aprendices con diversidad funcional, social y cultural crece en cada oferta educativa, lo que hace que la demanda de atención con enfoque pluralista y diferencial también crezca.</p>
+        <p>Por eso, nuestro centro de formación debe fortalecer las capacidades de los instructores y del personal administrativo, para brindar una atención inclusiva que evite la deserción de estos aprendices.</p>
+        <p>Ya se han implementado algunas estrategias, como la ruta de atención a personas con discapacidad, una guía práctica que nos ayuda a acompañar y entender a cada persona con discapacidad durante las diferentes etapas de su proceso en el SENA. Sin embargo, todavía queda mucho por avanzar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SLIDE 4 · OBJETIVO GENERAL ============== -->
+  <section class="slide" data-num="4">
+    <div class="slide-inner">
+      <div class="slide-header-row">
+        <div class="slide-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="12" r="6"/>
+            <circle cx="12" cy="12" r="2"/>
+          </svg>
+        </div>
+        <div class="slide-num">04 — Objetivo general</div>
+      </div>
+      <h2 class="slide-title">Objetivo general</h2>
+      <div class="sintesis">
+        <div class="sintesis-label">Resumen rápido</div>
+        <div class="sintesis-text">Fortalecer al CIES para atención inclusiva y garantizar la inclusión equitativa de todos los aprendices.</div>
+      </div>
+      <div class="highlight-box">
+        <div class="text">Fortalecer las capacidades institucionales del CIES para brindar una atención inclusiva y garantizar la inclusión equitativa de todos los aprendices.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SLIDE 5 · OBJETIVOS ESPECÍFICOS ============== -->
+  <section class="slide" data-num="5">
+    <div class="slide-inner">
+      <div class="slide-header-row">
+        <div class="slide-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6"/>
+            <line x1="8" y1="12" x2="21" y2="12"/>
+            <line x1="8" y1="18" x2="21" y2="18"/>
+            <circle cx="4" cy="6" r="1" fill="currentColor"/>
+            <circle cx="4" cy="12" r="1" fill="currentColor"/>
+            <circle cx="4" cy="18" r="1" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="slide-num">05 — Objetivos específicos</div>
+      </div>
+      <h2 class="slide-title">Objetivos específicos</h2>
+      <div class="sintesis">
+        <div class="sintesis-label">Resumen rápido</div>
+        <div class="sintesis-text">5 estrategias: mapeo de empatía, círculos interculturales, libro álbum, rutas con IA, laboratorios colaborativos.</div>
+      </div>
+      <div class="cards-grid">
+        <div class="list-card"><div class="num">01</div><div class="name">Mapeo de empatía</div></div>
+        <div class="list-card"><div class="num">02</div><div class="name">Círculos interculturales</div></div>
+        <div class="list-card"><div class="num">03</div><div class="name">Libro álbum + RA</div></div>
+        <div class="list-card"><div class="num">04</div><div class="name">Rutas con IA</div></div>
+        <div class="list-card"><div class="num">05</div><div class="name">Laboratorios colaborativos</div></div>
+      </div>
+      <div class="content">
+        <ul>
+          <li>Realizar un mapeo de empatía con instructores y personal administrativo que permita identificar las necesidades y oportunidades de mejora en la atención inclusiva.</li>
+          <li>Crear espacios de aprendizaje intercultural y de sensibilización que fortalezcan la convivencia, la participación y el respeto por la diversidad.</li>
+          <li>Diseñar un libro gráfico con Realidad Aumentada como herramienta de formación en inclusión.</li>
+          <li>Implementar rutas de ajustes razonables que combinen análisis de datos e inteligencia artificial para responder a las necesidades específicas de cada aprendiz.</li>
+          <li>Promover laboratorios colaborativos que permitan desarrollar soluciones innovadoras con la participación activa de toda la comunidad del CIES.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SLIDE 6 · METODOLOGÍA ============== -->
+  <section class="slide" data-num="6">
+    <div class="slide-inner">
+      <div class="slide-header-row">
+        <div class="slide-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3v18h18"/>
+            <path d="M7 14l4-4 4 4 5-5"/>
+          </svg>
+        </div>
+        <div class="slide-num">06 — Metodología</div>
+      </div>
+      <h2 class="slide-title">Metodología</h2>
+      <div class="sintesis">
+        <div class="sintesis-label">Resumen rápido</div>
+        <div class="sintesis-text">Investigación aplicada con enfoque mixto (cuantitativa y cualitativa). Las 5 fases coinciden con las 5 estrategias.</div>
+      </div>
+      <div class="section-label">Tipo de investigación</div>
+      <div class="highlight-box">
+        <div class="text">Aplicada con enfoque mixto: no solo trabajamos con datos numéricos (cuantitativos), sino también con datos basados en relatos y percepciones (cualitativos).</div>
+      </div>
+      <div class="section-label">Enfoque metodológico</div>
+      <div class="mixto-grid">
+        <div class="mixto-col">
+          <div class="mixto-label">Cualitativo</div>
+          <ul class="mixto-list">
+            <li>Mapeo de empatía</li>
+            <li>Encuestas y entrevistas</li>
+            <li>Círculos interculturales</li>
+            <li>Observación</li>
+          </ul>
+          <div class="mixto-purpose">Para entender qué siente y necesita la comunidad.</div>
+        </div>
+        <div class="mixto-col">
+          <div class="mixto-label">Cuantitativo</div>
+          <ul class="mixto-list">
+            <li>Analítica de datos</li>
+            <li>Inteligencia artificial</li>
+            <li>Indicadores de uso</li>
+            <li>Métricas del libro</li>
+          </ul>
+          <div class="mixto-purpose">Para medir qué funciona con evidencia.</div>
+        </div>
+      </div>
+      <div class="section-label">Fases del proyecto</div>
+      <div class="cards-grid">
+        <div class="list-card"><div class="num">FASE 1</div><div class="name">Mapeo de empatía</div></div>
+        <div class="list-card"><div class="num">FASE 2</div><div class="name">Círculos interculturales</div></div>
+        <div class="list-card"><div class="num">FASE 3</div><div class="name">Libro gráfico + RA</div></div>
+        <div class="list-card"><div class="num">FASE 4</div><div class="name">Rutas con IA</div></div>
+        <div class="list-card"><div class="num">FASE 5</div><div class="name">Laboratorios colaborativos</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SLIDE 7 · AVANCES ============== -->
+  <section class="slide" data-num="7">
+    <div class="slide-inner">
+      <div class="slide-header-row">
+        <div class="slide-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="9 12 11 14 15 10"/>
+          </svg>
+        </div>
+        <div class="slide-num">07 — Avances</div>
+      </div>
+      <h2 class="slide-title">Avances</h2>
+      <div class="sintesis">
+        <div class="sintesis-label">Resumen rápido</div>
+        <div class="sintesis-text">Mapeo completado, decálogo con 10 principios, libro Sarita en versión 3.</div>
+      </div>
+      <div class="phase-detail">
+        <div class="phase-row">
+          <span class="phase-label">Producto 1</span>
+          <p class="phase-text"><strong>Mapeo de empatía con instructores y administrativos del CIES:</strong> completado. El levantamiento de datos se hizo con una encuesta al personal del centro.</p>
+        </div>
+        <div class="phase-row">
+          <span class="phase-label">Producto 2</span>
+          <p class="phase-text"><strong>Decálogo de inclusión:</strong> 10 principios diseñados y listos para aplicarse en la práctica diaria del CIES.</p>
+        </div>
+        <div class="phase-row">
+          <span class="phase-label">Producto 3</span>
+          <p class="phase-text"><strong>Libro álbum «Sarita, dibujadora de sueños»:</strong> el cuento está escrito en su versión 3, ya hay boceto de portada, y la paleta cromática y la tipografía están definidas con estándares de accesibilidad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SLIDE 8 · MAPA DE EMPATÍA ============== -->
+  <section class="slide" data-num="8">
+    <div class="slide-inner">
+      <div class="slide-header-row">
+        <div class="slide-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+          </svg>
+        </div>
+        <div class="slide-num">08 — Mapa de empatía</div>
+      </div>
+      <h2 class="slide-title">Mapa de empatía</h2>
+      <div class="sintesis">
+        <div class="sintesis-label">Resumen rápido</div>
+        <div class="sintesis-text">Para conocer las necesidades de los instructores, hicimos un mapa de empatía. Los instructores quieren incluir pero necesitan más formación, recursos y acompañamiento.</div>
+      </div>
+      <div class="section-label">Las 4 preguntas alrededor del instructor</div>
+      <div class="cards-grid">
+        <div class="list-card"><div class="num">PIENSA</div><div class="name">Qué piensa y siente</div></div>
+        <div class="list-card"><div class="num">OYE</div><div class="name">Qué oye</div></div>
+        <div class="list-card"><div class="num">VE</div><div class="name">Qué ve</div></div>
+        <div class="list-card"><div class="num">HACE</div><div class="name">Qué dice y hace</div></div>
+      </div>
+      <div class="content">
+        <p>Para conocer las necesidades de los instructores del SENA, realizamos un mapa de empatía. A través de una encuesta a instructores y administrativos del CIES, identificamos lo que piensan, sienten, ven, escuchan y hacen frente a la inclusión.</p>
+        <p>Los resultados mostraron que los instructores quieren brindar una atención más inclusiva, pero necesitan mayor formación, recursos y acompañamiento. Con esta información diseñamos las cinco estrategias del proyecto.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SLIDE 9 · DECÁLOGO ============== -->
+  <section class="slide" data-num="9">
+    <div class="slide-inner">
+      <div class="slide-header-row">
+        <div class="slide-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="9" y1="13" x2="15" y2="13"/>
+            <line x1="9" y1="17" x2="15" y2="17"/>
+          </svg>
+        </div>
+        <div class="slide-num">09 — Decálogo de inclusión</div>
+      </div>
+      <h2 class="slide-title">Decálogo de inclusión</h2>
+      <div class="sintesis">
+        <div class="sintesis-label">Resumen rápido</div>
+        <div class="sintesis-text">10 compromisos de inclusión. Sale de la política SENA, Decreto 1421/2017 y diseño universal.</div>
+      </div>
+      <div class="section-label">Los 10 compromisos</div>
+      <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));">
+        <div class="list-card"><div class="num">01</div><div class="name">Valoro la diversidad</div></div>
+        <div class="list-card"><div class="num">02</div><div class="name">Promuevo el respeto</div></div>
+        <div class="list-card"><div class="num">03</div><div class="name">Empatizo con los demás</div></div>
+        <div class="list-card"><div class="num">04</div><div class="name">Reconozco la inclusión</div></div>
+        <div class="list-card"><div class="num">05</div><div class="name">Promuevo entornos inclusivos</div></div>
+        <div class="list-card"><div class="num">06</div><div class="name">Empleo lenguaje respetuoso</div></div>
+        <div class="list-card"><div class="num">07</div><div class="name">Empoderamos a las personas</div></div>
+        <div class="list-card"><div class="num">08</div><div class="name">Busco apoyo</div></div>
+        <div class="list-card"><div class="num">09</div><div class="name">Me capacito en inclusión</div></div>
+        <div class="list-card"><div class="num">10</div><div class="name">Realizo ajustes razonables</div></div>
+      </div>
+      <div class="content">
+        <p>Cada punto se acompaña de un ejemplo de la vida real, para que se entienda sin explicaciones adicionales. Los principios salen del cruce entre la política del SENA (Acuerdo 0010 de 2016), el Decreto 1421 de 2017 de educación inclusiva, y los principios del diseño universal.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SLIDE 10 · LIBRO SARITA ============== -->
+  <section class="slide" data-num="10">
+    <div class="slide-inner">
+      <div class="slide-header-row">
+        <div class="slide-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+        </div>
+        <div class="slide-num">10 — Libro álbum</div>
+      </div>
+      <h2 class="slide-title">Lo que lleva el libro álbum «Sarita, dibujadora de sueños»</h2>
+      <div class="sintesis">
+        <div class="sintesis-label">Resumen rápido</div>
+        <div class="sintesis-text">Sarita es una aprendiz SENA con diversidad funcional que encuentra en el dibujo su forma de expresión. El libro tiene 3 capas accesibles.</div>
+      </div>
+      <div class="highlight-box">
+        <div class="text">El libro cuenta la historia de una aprendiz SENA con diversidad funcional que encuentra en el dibujo su forma de expresión. Para que cualquier persona pueda leerlo, se diseñó con tres capas accesibles:</div>
+      </div>
+      <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));">
+        <div class="list-card"><div class="num">CAPA 1</div><div class="name">Tipografía</div></div>
+        <div class="list-card"><div class="num">CAPA 2</div><div class="name">Colores</div></div>
+        <div class="list-card"><div class="num">CAPA 3</div><div class="name">Formato</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SLIDE 11 · TIPOGRAFÍA ============== -->
+  <section class="slide" data-num="11">
+    <div class="slide-inner">
+      <div class="slide-header-row">
+        <div class="slide-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 7V4h16v3"/>
+            <line x1="9" y1="20" x2="15" y2="20"/>
+            <line x1="12" y1="4" x2="12" y2="20"/>
+          </svg>
+        </div>
+        <div class="slide-num">11 — Tipografía</div>
+      </div>
+      <h2 class="slide-title">Tipografía</h2>
+      <div class="sintesis">
+        <div class="sintesis-label">Resumen rápido</div>
+        <div class="sintesis-text">Todo en Atkinson Hyperlegible. Cubre dislexia, baja visión y glaucoma. Las cataratas y epilepsia las cubren otras decisiones.</div>
+      </div>
+      <div class="section-label">Decisiones tomadas</div>
+      <div class="phase-detail">
+        <div class="phase-row">
+          <span class="phase-label">Letra</span>
+          <p class="phase-text"><strong>Atkinson Hyperlegible</strong> (cuerpo, títulos y créditos). Cubre: dislexia, baja visión y glaucoma. Hecha por el Braille Institute of America con personas reales.</p>
+        </div>
+        <div class="phase-row">
+          <span class="phase-label">Tamaño</span>
+          <p class="phase-text"><strong>18 puntos.</strong> Cubre: baja visión. Es el tamaño mínimo que recomienda la British Dyslexia Association para textos largos.</p>
+        </div>
+        <div class="phase-row">
+          <span class="phase-label">Interlineado</span>
+          <p class="phase-text"><strong>1,5.</strong> Cubre: dislexia y baja visión. Con 1,0 o 1,2 las líneas se montan para personas con dislexia o glaucoma.</p>
+        </div>
+        <div class="phase-row">
+          <span class="phase-label">Alineación</span>
+          <p class="phase-text"><strong>A la izquierda, sin justificar.</strong> Cubre: dislexia. El justificado crea "ríos" (espacios irregulares) que confunden al ojo.</p>
+        </div>
+        <div class="phase-row">
+          <span class="phase-label">Línea</span>
+          <p class="phase-text"><strong>Máximo 65 letras por línea.</strong> Cubre: glaucoma (no se pierde el renglón) y dislexia (menos saltos).</p>
+        </div>
+        <div class="phase-row">
+          <span class="phase-label">Licencia</span>
+          <p class="phase-text"><strong>SIL OFL 1.1 (gratis).</strong> Se puede imprimir y vender el libro sin pagar derechos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SLIDE 12 · COLORES ============== -->
+  <section class="slide" data-num="12">
+    <div class="slide-inner">
+      <div class="slide-header-row">
+        <div class="slide-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="13.5" cy="6.5" r="2.5"/>
+            <circle cx="19" cy="13" r="2.5"/>
+            <circle cx="6" cy="12" r="2.5"/>
+            <circle cx="10" cy="19" r="2.5"/>
+          </svg>
+        </div>
+        <div class="slide-num">12 — Colores</div>
+      </div>
+      <h2 class="slide-title">Colores</h2>
+      <div class="sintesis">
+        <div class="sintesis-label">Resumen rápido</div>
+        <div class="sintesis-text">Fondo crema + texto negro = contraste AAA 15,6:1. El crema evita el deslumbramiento en cataratas. Paleta de Okabe-Ito + Wong.</div>
+      </div>
+      <div class="facts-grid">
+        <div class="fact-card"><div class="k">Fondo</div><div class="v">Crema #FAF6EE</div></div>
+        <div class="fact-card"><div class="k">Texto</div><div class="v">Negro #0A0A0A</div></div>
+        <div class="fact-card"><div class="k">Contraste</div><div class="v">15,6 a 1 (AAA)</div></div>
+        <div class="fact-card"><div class="k">Personajes</div><div class="v">Okabe-Ito + Wong</div></div>
+      </div>
+      <div class="highlight-box">
+        <div class="text"><strong>Regla de oro:</strong> el color nunca puede ser lo único que diferencie dos cosas en la página, siempre debe ir acompañado de forma, textura o letrero.</div>
+      </div>
+      <div class="content">
+        <p>El fondo es crema cálido (#FAF6EE) y el texto va en negro (#0A0A0A). Eso da un contraste de 15,6 a 1, que es el nivel AAA (el más alto de la guía WCAG 2.2 del W3C). El blanco nuclear cansa la vista a las personas con cataratas; el crema no. Para los personajes se usó una paleta basada en dos estudios científicos hechos por personas que ellas mismas tienen daltonismo: Okabe e Ito (Universidad de Tokio, 2008) y Wong (revista Nature Methods, 2011). Esto importa porque uno de cada doce hombres tiene daltonismo, y más de 1.700.000 personas en Colombia tienen alguna discapacidad visual (fuente: DANE).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SLIDE 13 · FORMATO ============== -->
+  <section class="slide" data-num="13">
+    <div class="slide-inner">
+      <div class="slide-header-row">
+        <div class="slide-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <line x1="3" y1="9" x2="21" y2="9"/>
+            <line x1="9" y1="21" x2="9" y2="9"/>
+          </svg>
+        </div>
+        <div class="slide-num">13 — Formato</div>
+      </div>
+      <h2 class="slide-title">Formato</h2>
+      <div class="sintesis">
+        <div class="sintesis-label">Resumen rápido</div>
+        <div class="sintesis-text">A4 vertical con lomo. Braille en relieve, QR al audiolibro, LSC, Realidad Aumentada.</div>
+      </div>
+      <div class="facts-grid">
+        <div class="fact-card"><div class="k">Tamaño</div><div class="v">A4 vertical con lomo</div></div>
+        <div class="fact-card"><div class="k">Norma papel</div><div class="v">ISO 216</div></div>
+        <div class="fact-card"><div class="k">Braille</div><div class="v">En relieve (ISO 17049:2013)</div></div>
+        <div class="fact-card"><div class="k">QR</div><div class="v">Al audiolibro</div></div>
+        <div class="fact-card"><div class="k">LSC</div><div class="v">Videos en lengua de señas</div></div>
+        <div class="fact-card"><div class="k">Extra</div><div class="v">Realidad Aumentada</div></div>
+      </div>
+      <div class="content">
+        <p>A4 vertical con lomo, que es el estándar de la industria editorial (Blurb, Amazon KDP) y cumple la norma ISO 216. Permite que el Braille en relieve (norma ISO 17049:2013) conviva con el texto sin estorbarse. El libro incluye un código QR al audiolibro, videos en lengua de señas colombiana, y Realidad Aumentada que enriquece la lectura al apuntar el celular a las ilustraciones.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SLIDE 14 · RESULTADOS PRELIMINARES ============== -->
+  <section class="slide" data-num="14">
+    <div class="slide-inner">
+      <div class="slide-header-row">
+        <div class="slide-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+        </div>
+        <div class="slide-num">14 — Resultados preliminares</div>
+      </div>
+      <h2 class="slide-title">Resultados <em>preliminares</em></h2>
+      <div class="sintesis">
+        <div class="sintesis-label">Resumen rápido</div>
+        <div class="sintesis-text">80% del personal sensibilizado, estrategias inclusivas adaptadas, espacios interculturales, mayor permanencia y satisfacción de los aprendices.</div>
+      </div>
+      <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));">
+        <div class="list-card"><div class="num">80%</div><div class="name">Personal sensibilizado y capacitado</div></div>
+        <div class="list-card"><div class="num">+ POBLACIÓN</div><div class="name">Estrategias pedagógicas inclusivas adaptadas</div></div>
+        <div class="list-card"><div class="num">+ ESPACIOS</div><div class="name">Aprendizaje intercultural consolidado</div></div>
+        <div class="list-card"><div class="num">+ PERMANENCIA</div><div class="name">Mayor satisfacción de los aprendices</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SLIDE 15 · CIERRE ============== -->
+  <section class="slide" data-num="15">
+    <div class="slide-inner">
+      <div class="slide-header-row">
+        <div class="slide-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+        <div class="slide-num">15 — Cierre</div>
+      </div>
+      <h2 class="slide-title">Cierre</h2>
+      <div class="sintesis">
+        <div class="sintesis-label">Resumen rápido</div>
+        <div class="sintesis-text">La inclusión no puede ser solo un letrero: tiene que ser un libro que cualquier persona pueda leer.</div>
+      </div>
+      <div class="highlight-box">
+        <div class="text">La inclusión no puede ser solo un letrero en la pared. Tiene que ser un libro que cualquier persona pueda leer, en cualquier condición. Eso es lo que estamos construyendo.</div>
+      </div>
+      <div class="content">
+        <p>Muchas gracias. ¿Tienen alguna pregunta?</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- HEADER TOP (no portada) -->
+<div class="top-bar" id="topBar" style="display:none;">
+  <div class="brand"><strong>Semillero AASI</strong> · Córdoba 2026</div>
+  <button class="menu-btn" onclick="toggleMenu()">☰ Índice</button>
+</div>
+
+<!-- BOTONES LATERALES GRANDES (para móvil) -->
+<button class="side-btn prev" id="sidePrev" onclick="prev()">‹</button>
+<button class="side-btn next" id="sideNext" onclick="next()">›</button>
+
+<!-- CONTROLES INFERIORES -->
+<div class="controls">
+  <button class="nav-btn" id="prevBtn" onclick="prev()">‹ Ant.</button>
+  <div class="counter" id="counter">1 / 15</div>
+  <div class="progress"><div class="progress-fill" id="progressFill" style="width: 6.66%"></div></div>
+  <button class="nav-btn" id="nextBtn" onclick="next()">Sig. ›</button>
+</div>
+
+<!-- HINT INICIAL (toast que se quita tras primera interacción) -->
+<div class="swipe-hint" id="swipeHint">
+  <span class="arrow-left">‹</span> Desliza o toca los lados <span class="arrow-right">›</span>
+</div>
+
+<!-- MENU OVERLAY -->
+<div class="menu-overlay" id="menuOverlay">
+  <div class="menu-head">
+    <h2>Índice</h2>
+    <button class="close" onclick="toggleMenu()">✕</button>
+  </div>
+  <ul class="menu-list" id="menuList">
+    <li><a href="#" data-jump="1"><span class="num">1</span>Portada</a></li>
+    <li><a href="#" data-jump="2"><span class="num">2</span>Presentación</a></li>
+    <li><a href="#" data-jump="3"><span class="num">3</span>Problemas y justificación</a></li>
+    <li><a href="#" data-jump="4"><span class="num">4</span>Objetivo general</a></li>
+    <li><a href="#" data-jump="5"><span class="num">5</span>Objetivos específicos</a></li>
+    <li><a href="#" data-jump="6"><span class="num">6</span>Metodología</a></li>
+    <li><a href="#" data-jump="7"><span class="num">7</span>Avances</a></li>
+    <li><a href="#" data-jump="8"><span class="num">8</span>Mapa de empatía</a></li>
+    <li><a href="#" data-jump="9"><span class="num">9</span>Decálogo de inclusión</a></li>
+    <li><a href="#" data-jump="10"><span class="num">10</span>Libro álbum</a></li>
+    <li><a href="#" data-jump="11"><span class="num">11</span>Tipografía</a></li>
+    <li><a href="#" data-jump="12"><span class="num">12</span>Colores</a></li>
+    <li><a href="#" data-jump="13"><span class="num">13</span>Formato</a></li>
+    <li><a href="#" data-jump="14"><span class="num">14</span>Resultados preliminares</a></li>
+    <li><a href="#" data-jump="15"><span class="num">15</span>Cierre</a></li>
+  </ul>
+</div>
+
+<script>
+  const TOTAL = 15;
+  let current = 1;
+  let hintShown = true;
+
+  function show(n) {
+    if (n < 1 || n > TOTAL) return;
+    const slides = document.querySelectorAll('.slide');
+    slides.forEach(s => s.classList.remove('active'));
+    const target = document.querySelector('.slide[data-num="' + n + '"]');
+    if (target) {
+      target.classList.add('active');
+      target.scrollTop = 0;
+    }
+    current = n;
+    updateUI();
+    hideHint();
+  }
+
+  function next() { if (current < TOTAL) show(current + 1); }
+  function prev() { if (current > 1) show(current - 1); }
+
+  function hideHint() {
+    if (hintShown) {
+      const hint = document.getElementById('swipeHint');
+      if (hint) hint.classList.add('hidden');
+      hintShown = false;
+    }
+  }
+
+  function updateUI() {
+    document.getElementById('counter').textContent = current + ' / ' + TOTAL;
+    document.getElementById('progressFill').style.width = (current / TOTAL * 100) + '%';
+    document.getElementById('prevBtn').disabled = current === 1;
+    document.getElementById('nextBtn').disabled = current === TOTAL;
+    document.getElementById('sidePrev').disabled = current === 1;
+    document.getElementById('sideNext').disabled = current === TOTAL;
+    document.getElementById('topBar').style.display = current === 1 ? 'none' : 'flex';
+    document.querySelectorAll('#menuList a').forEach(a => {
+      a.classList.toggle('current', parseInt(a.dataset.jump) === current);
+    });
+  }
+
+  function toggleMenu() {
+    document.getElementById('menuOverlay').classList.toggle('open');
+  }
+  document.querySelectorAll('#menuList a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const n = parseInt(a.dataset.jump);
+      show(n);
+      toggleMenu();
+    });
+  });
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (document.getElementById('menuOverlay').classList.contains('open')) {
+      if (e.key === 'Escape') toggleMenu();
+      return;
+    }
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); next(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+    else if (e.key === 'Home') { show(1); }
+    else if (e.key === 'End') { show(TOTAL); }
+  });
+
+  // Swipe (touch)
+  let touchStartX = 0, touchStartY = 0, touchStartTime = 0;
+  const SWIPE_THRESHOLD = 40;
+
+  document.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    touchStartTime = Date.now();
+  }, { passive: true });
+
+  document.addEventListener('touchend', e => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+    const dx = touchEndX - touchStartX;
+    const dy = touchEndY - touchStartY;
+    const dt = Date.now() - touchStartTime;
+
+    // Swipe horizontal: más horizontal que vertical Y suficientemente largo Y rápido
+    if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy) * 1.5 && dt < 600) {
+      if (dx < 0) next();
+      else prev();
+    }
+  }, { passive: true });
+
+  // Ocultar hint tras 5 segundos aunque no haya interacción
+  setTimeout(hideHint, 5000);
+
+  updateUI();
+</script>
+
+</body>
+</html>
