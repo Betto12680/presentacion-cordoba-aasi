@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
 <meta name="theme-color" content="#ffffff">
 <title>Presentación · Córdoba 2026 · Semillero AASI</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; width: 100%; }
@@ -266,6 +266,98 @@
     font-weight: 700; color: #14171e;
     margin: 14px 0 6px;
     font-size: 14px;
+  }
+
+  /* ===== MUESTRA DE TIPOGRAFÍA ===== */
+  .typeface-sample {
+    background: #fafafa;
+    border: 1px solid #ececec;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  @media (min-width: 480px) {
+    .typeface-sample {
+      padding: 18px 20px;
+      gap: 18px;
+      flex-wrap: nowrap;
+    }
+  }
+  .typeface-name {
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    font-size: 54px;
+    font-weight: 700;
+    line-height: 1;
+    color: #14171e;
+    flex-shrink: 0;
+    min-width: 70px;
+    text-align: center;
+  }
+  @media (min-width: 480px) {
+    .typeface-name {
+      font-size: 64px;
+      min-width: 90px;
+    }
+  }
+  .typeface-info {
+    flex: 1;
+    min-width: 180px;
+  }
+  .typeface-display {
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #14171e;
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+  .typeface-body {
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #14171e;
+    letter-spacing: 0.02em;
+    word-break: break-word;
+  }
+  .typeface-body br + br { display: block; content: ""; margin-top: 4px; }
+
+  /* ===== FEATURES LIST ===== */
+  .features-list {
+    margin-bottom: 18px;
+  }
+  .feature-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+    gap: 6px;
+    align-items: start;
+    padding: 10px 0;
+    border-bottom: 1px solid #ececec;
+  }
+  @media (min-width: 400px) {
+    .feature-row {
+      grid-template-columns: 90px 1fr;
+      gap: 12px;
+    }
+  }
+  .feature-row:last-child { border-bottom: none; }
+  .feature-tag {
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #14171e;
+    background: #fafafa;
+    border: 1px solid #ececec;
+    border-radius: 6px;
+    padding: 4px 8px;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+  .feature-text {
+    font-size: 13px; line-height: 1.45; color: #14171e;
   }
 
   /* ===== ETIQUETA DE SECCIÓN ===== */
@@ -892,27 +984,69 @@
         <div class="sintesis-label">Resumen rápido</div>
         <div class="sintesis-text">Todo en Atkinson Hyperlegible. Cubre dislexia, baja visión y glaucoma. Las cataratas y epilepsia las cubren otras decisiones.</div>
       </div>
-      <div class="section-label">Decisiones tomadas</div>
+
+      <!-- Muestra de la tipografía -->
+      <div class="section-label">La letra del libro</div>
+      <div class="typeface-sample">
+        <div class="typeface-name">Aa</div>
+        <div class="typeface-info">
+          <div class="typeface-display">Atkinson Hyperlegible</div>
+          <div class="typeface-body">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0 1 2 3 4 5 6 7 8 9</div>
+        </div>
+      </div>
+
+      <!-- Características que la hacen diferente -->
+      <div class="section-label">Qué la hace diferente</div>
+      <div class="features-list">
+        <div class="feature-row">
+          <span class="feature-tag">B vs 8</span>
+          <p class="feature-text">El 8 es más estrecho arriba (forma de pera) para que no se confunda con la B.</p>
+        </div>
+        <div class="feature-row">
+          <span class="feature-tag">O vs 0</span>
+          <p class="feature-text">El 0 lleva una diagonal interna (slash) para distinguirse de la O mayúscula.</p>
+        </div>
+        <div class="feature-row">
+          <span class="feature-tag">I vs l vs 1</span>
+          <p class="feature-text">La I mayúscula tiene patitas arriba y abajo; la l minúscula lleva una cola abajo; la 1 tiene serif. Las tres son inconfundibles.</p>
+        </div>
+        <div class="feature-row">
+          <span class="feature-tag">b d p q</span>
+          <p class="feature-text">Las letras que se confunden al invertirlas llevan spurs (puntas) asimétricos que las distinguen.</p>
+        </div>
+        <div class="feature-row">
+          <span class="feature-tag">Aperturas</span>
+          <p class="feature-text">Las aperturas (gaps en e, c, a) son más anchas que en fuentes normales, lo que ayuda a reconocerlas.</p>
+        </div>
+        <div class="feature-row">
+          <span class="feature-tag">Curvas</span>
+          <p class="feature-text">Las formas curvas redondas evocan los puntos del Braille — un guiño al instituto que la diseñó.</p>
+        </div>
+      </div>
+
+      <!-- Quién la hizo -->
+      <div class="highlight-box">
+        <div class="text"><strong>Hecha por el Braille Institute of America</strong> (con Applied Design Works) en 2019, trabajando con personas con baja visión reales. Ganó el Fast Company Innovation by Design Awards ese mismo año. En 2025 lanzaron <em>Atkinson Hyperlegible Next</em>, una versión mejorada con soporte para 150+ idiomas y 7 pesos. Fuente: brailleinstitute.org/freefont.</div>
+      </div>
+
+      <!-- Decisiones técnicas del proyecto -->
+      <div class="section-label">Decisiones del proyecto</div>
       <div class="phase-detail">
         <div class="phase-row">
-          <span class="phase-label">Letra</span>
-          <p class="phase-text"><strong>Atkinson Hyperlegible</strong> (cuerpo, títulos y créditos). Cubre: dislexia, baja visión y glaucoma. Hecha por el Braille Institute of America con personas reales.</p>
-        </div>
-        <div class="phase-row">
           <span class="phase-label">Tamaño</span>
-          <p class="phase-text"><strong>18 puntos.</strong> Cubre: baja visión. Es el tamaño mínimo que recomienda la British Dyslexia Association para textos largos.</p>
+          <p class="phase-text"><strong>18 puntos.</strong> Cubre: baja visión. Mínimo recomendado por la British Dyslexia Association para textos largos.</p>
         </div>
         <div class="phase-row">
           <span class="phase-label">Interlineado</span>
-          <p class="phase-text"><strong>1,5.</strong> Cubre: dislexia y baja visión. Con 1,0 o 1,2 las líneas se montan para personas con dislexia o glaucoma.</p>
+          <p class="phase-text"><strong>1,5.</strong> Cubre: dislexia y baja visión. Con 1,0 o 1,2 las líneas se montan.</p>
         </div>
         <div class="phase-row">
           <span class="phase-label">Alineación</span>
-          <p class="phase-text"><strong>A la izquierda, sin justificar.</strong> Cubre: dislexia. El justificado crea "ríos" (espacios irregulares) que confunden al ojo.</p>
+          <p class="phase-text"><strong>A la izquierda, sin justificar.</strong> Cubre: dislexia. El justificado crea "ríos" que confunden al ojo.</p>
         </div>
         <div class="phase-row">
           <span class="phase-label">Línea</span>
-          <p class="phase-text"><strong>Máximo 65 letras por línea.</strong> Cubre: glaucoma (no se pierde el renglón) y dislexia (menos saltos).</p>
+          <p class="phase-text"><strong>Máximo 65 letras por línea.</strong> Cubre: glaucoma y dislexia.</p>
         </div>
         <div class="phase-row">
           <span class="phase-label">Licencia</span>
